@@ -4,7 +4,6 @@ export const checkValidateData = (email, password) => {
   const isPasswordValidated = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{8,}$/.test(
     password
   );
-  console.log(password, isPasswordValidated)
 
   if (!isEmailValidated) return "Email is not Valid";
   if (!isPasswordValidated)

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Header from "./Header";
+import Header from "../components/Header";
 import { checkValidateData } from "../utils/validate";
 import {
   createUserWithEmailAndPassword,
@@ -8,6 +8,7 @@ import {
   updateProfile
 } from "firebase/auth";
 import { auth } from "../utils/firebase.config";
+import { LOGIN_BG, USER_AVATAR } from "../utils/constants";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -39,17 +40,14 @@ const Login = () => {
     if (message) return;
 
     if (!isSignInForm) {
-      console.log("working");
       createUserWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
           updateProfile(auth.currentUser, {
             displayName: name.current.value,
-            photoURL:
-              "https://media.licdn.com/dms/image/D5603AQG-DHGyl5hNFA/profile-displayphoto-shrink_200_200/0/1705678371447?e=2147483647&v=beta&t=BFUwAAwxMOS-hFjLTXNQXUaiY72S-usWbvrFbeHZtmE",
+            photoURL: USER_AVATAR,
           })
             .then(() => {
-              navigate("/browse");
               console.log(user);
             })
             .catch((error) => {
@@ -65,7 +63,6 @@ const Login = () => {
       signInWithEmailAndPassword(auth, emailValue, passwordValue)
         .then((userCredential) => {
           const user = userCredential.user;
-          console.log(user);
           navigate("/browse");
         })
         .catch((error) => {
@@ -81,7 +78,7 @@ const Login = () => {
       <Header />
       <div className="absolute">
         <img
-          src="https://assets.nflxext.com/ffe/siteui/vlv3/a56dc29b-a0ec-4f6f-85fb-50df0680f80f/2f8ae902-8efe-49bb-9a91-51b6fcc8bf46/IN-en-20240617-popsignuptwoweeks-perspective_alpha_website_large.jpg"
+          src={LOGIN_BG}
           alt=""
         />
       </div>

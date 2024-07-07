@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase.config";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { addUser, removeUser } from "../store/userSlice";
+import { LOGO } from "../utils/constants";
 
 const Header = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isScrolled, setIsScrolled] = useState(false);
   const user = useSelector((store) => store.user);
 
   const handleSignOut = () => {
     signOut(auth)
-      .then(() => {
-        navigate("/");
-      })
+      .then(() => {})
       .catch((error) => {
         console.log(error);
         navigate("/error");
@@ -21,20 +23,39 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        const { uid, email, displayName, photoURL } = user;
+        dispatch(
+          addUser({
+            uid,
+            email,
+            displayName,
+            photoURL,
+          })
+        );
+        navigate("/browse");
+      } else {
+        dispatch(removeUser());
+        navigate("/");
+      }
+    });
+
     window.addEventListener("scroll", () => {
-      console.log("scrolled", window.scrollY);
       if (window.scrollY) {
         setIsScrolled(true);
       } else {
         setIsScrolled(false);
       }
     });
+
+    return () => unsubscribe();
   }, []);
 
   return (
     <div
       className={
-        "fixed top-0 left-0 right-0 flex items-center justify-between px-8 py-4 bg-gray-800 z-10 " +
+        "fixed top-0 left-0 right-0 flex items-center justify-between px-8 py-4 bg-gray-800 z-30 " +
         (!isScrolled ? "opacity-80" : "")
       }
       style={{ backgroundColor: "rgb(20, 20, 20)" }}
@@ -43,7 +64,7 @@ const Header = () => {
         <a href="/browse" className="flex items-center">
           <img
             className="w-32 md:w-44"
-            src="https://cdn.cookielaw.org/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png"
+            src={LOGO}
             alt="Netflix Logo"
           />
         </a>
