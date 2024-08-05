@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../store/userSlice";
 import { LOGO } from "../utils/constants";
+import { searchTitle } from "../store/searchSlice";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -23,8 +26,12 @@ const Header = () => {
       });
   };
 
-  const handleSearch = () => {
-    setIsSearching(true);
+  const handleToggleSearch = () => {
+    setIsSearching(!isSearching);
+  };
+
+  const handleSearch = (e) => {
+    dispatch(searchTitle(e.target.value));
   };
 
   useEffect(() => {
@@ -101,8 +108,8 @@ const Header = () => {
         <div className="flex items-center space-x-4 text-white">
           <div className="relative">
             {isSearching ? (
-              <div className="searchBox">
-                <div className="duration-300 transition ease-in delay-300">
+              <div className="transition ease-in-out">
+                <div className="">
                   <div className="absolute top-[5px] left-[6px]">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
@@ -128,7 +135,14 @@ const Header = () => {
                     name="searchInput"
                     placeholder="Titles, people, genres"
                     maxLength="80"
-                    className="opacity-100 focus:outline-none bg-black border-solid border-[1px] border-white p-1 pl-10 pr-14 mr-5"
+                    className="opacity-100 focus:outline-none bg-black border-solid border-[1px] border-white p-1 pl-10 pr-16 mr-5"
+                    onChange={handleSearch}
+                  />
+
+                  <FontAwesomeIcon
+                    icon={faXmark}
+                    className="absolute right-8 top-2 cursor-pointer"
+                    onClick={handleToggleSearch}
                   />
                 </div>
               </div>
@@ -137,7 +151,7 @@ const Header = () => {
                 className="focus:outline-none"
                 tabIndex="0"
                 aria-label="Search"
-                onClick={handleSearch}
+                onClick={handleToggleSearch}
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -161,19 +175,12 @@ const Header = () => {
           </div>
           <div className="relative">
             <div className="account-dropdown-button">
-              <a
-                href="/YourAccount"
-                role="button"
-                tabIndex="0"
-                aria-haspopup="true"
-                aria-expanded="false"
-                aria-label="Account & Settings"
-              >
-                <span className="profile-link" role="presentation">
+              <a href="/YourAccount">
+                <span role="presentation">
                   <img
-                    className="w-8 h-8 rounded-full"
-                    src={user.photoURL}
-                    alt="User Profile"
+                    className="profile-icon"
+                    src="https://occ-0-2991-2164.1.nflxso.net/dnm/api/v6/vN7bi_My87NPKvsBoib006Llxzg/AAAABeuqjuQsRgqEDlibtJTI5BMf8IxhLlLOeIT6xI4TL57mqv7XHja43gx02S8pZVe8JNGRQXjnrUk1VcsTXqi83tFKPI6OR3k.png?r=bd7"
+                    alt="Profile Icon"
                   />
                 </span>
               </a>

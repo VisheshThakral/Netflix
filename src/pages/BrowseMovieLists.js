@@ -5,8 +5,8 @@ import { useSelector } from "react-redux";
 const BrowseMovieLists = () => {
   const movies = useSelector((store) => store.movies);
   return (
-    <div className="bg-black">
-      <div className="xl:-mt-52 2xl:-mt-72 pl-12 z-20 relative">
+    <div className="bg-gradient-to-b from-[#141616] to-[#141414] pb-24">
+      <div className="xl:-mt-52 2xl:-mt-72 z-20 relative">
         <MoviesList title={"Now Playing"} movies={movies.nowPlayingMovies} />
         <MoviesList title={"Upcoming"} movies={movies.upcomingMovies} />
         <MoviesList title={"Popular"} movies={movies.popularMovies} />

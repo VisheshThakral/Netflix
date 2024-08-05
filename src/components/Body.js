@@ -1,6 +1,6 @@
 import React from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Login from "../pages/Login"
+import Login from "../pages/Login";
 import Browse from "../pages/Browse";
 
 const Body = () => {

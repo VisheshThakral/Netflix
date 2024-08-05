@@ -1,3 +1,37 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* CSS for fade-out animation */
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    display: none;
+  }
+}
+
+/* CSS for slide-down animation */
+@keyframes slideDown {
+  0% {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(144px);
+    opacity: 1;
+  }
+}
+
+/* Apply fade-out animation to the overview text */
+.fade-in-out {
+  animation: fadeOut 4s ease-out forwards;
+}
+
+/* Apply slide-down animation to the title */
+.slide-down {
+  animation: slideDown 4s ease-out forwards;
+  animation-delay: 4s; /* Delay starts after overview fade-out completes */
+}
+

@@ -3,8 +3,8 @@ import { IMG_URL } from "../utils/constants";
 
 const MovieCard = ({ posterPath }) => {
   return (
-    <div className="w-52 pr-4">
-      <img alt="Movie Card" src={IMG_URL + posterPath} />
+    <div className="cursor-pointer shadow-xl">
+      <img alt="Movie Card" className="max-h-[128px] min-w-[255px] object-cover" src={IMG_URL + posterPath} />
     </div>
   );
 };
