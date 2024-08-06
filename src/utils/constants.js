@@ -12,7 +12,7 @@ export const TMDB_API_OPTIONS = {
   headers: {
     accept: "application/json",
     Authorization:
-      "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIwOGI5M2MxMTBlYjA1OGUzZDU3MTMwMmNjMDc5N2E2YyIsIm5iZiI6MTcyMDIwODAzNi44NjE5OTUsInN1YiI6IjY2ODg0OWU2YWQ3YjUzYmY5MTg4ZTA1MCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.reZXk2LD579k4qOE5267aFIpF-J5LQZWP7IaS5faFoY",
+      process.env.REACT_APP_TMDB_AUTHORIZATION_TOKEN,
   },
 };
 
