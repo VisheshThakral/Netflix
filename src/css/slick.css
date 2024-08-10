@@ -1,0 +1,18 @@
+.slick-slider .slick-arrow {
+  opacity: 0 !important;
+  transition: opacity 0.3s ease;
+}
+
+.slick-slider:hover .left, 
+.slick-slider:hover .right {
+  opacity: 1 !important;
+}
+
+
+.slick-list {
+  margin-right: -100px;
+}
+
+/* .slick-active { 
+  margin-right: 10px;
+} */

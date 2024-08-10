@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import useBillboardVideo from "../hooks/useBillboardVideo";
 
 const VideoBackground = ({ movieId }) => {
   const movieTrailer = useSelector((store) => store.movies?.billboardTrailer);
   const [isVideoOnMute, setIsVideoOnMute] = useState(true);
+  const [player, setPlayer] = useState(null);
 
   useBillboardVideo(movieId);
 
@@ -15,18 +16,22 @@ const VideoBackground = ({ movieId }) => {
   return (
     <div className="max-w-full ">
       <iframe
-        className="max-w-full w-screen aspect-video"
+        className="w-screen aspect-video"
         src={`https://www.youtube.com/embed/${movieTrailer?.key}?&autoplay=1&mute=${isVideoOnMute}`}
         title="YouTube video player"
+        id="video-background"
         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
       ></iframe>
 
       <button
         aria-label="Turn audio on"
-        className="text-white absolute bottom-60 right-14 focus:outline-double rounded-full"
+        className="text-white absolute bottom-60 z-30 right-14 focus:outline-double rounded-full"
         onClick={handleSoundButtonClick}
       >
-        <div className="border-2 border-white p-2 rounded-full" role="presentation">
+        <div
+          className="border-2 border-white p-2 rounded-full"
+          role="presentation"
+        >
           {!isVideoOnMute ? (
             <svg
               xmlns="http://www.w3.org/2000/svg"

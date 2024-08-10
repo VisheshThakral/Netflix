@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -7,14 +7,17 @@ import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "../utils/firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { addUser, removeUser } from "../store/userSlice";
-import { LOGO } from "../utils/constants";
+import { LOGO, SEARCH_QUERY } from "../utils/constants";
 import { searchTitle } from "../store/searchSlice";
+import openai from "../utils/openai";
+import { debounce } from "lodash";
 
 const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [isScrolled, setIsScrolled] = useState(false);
   const [isSearching, setIsSearching] = useState(false);
+  const [userInput, setInput] = useState("");
   const user = useSelector((store) => store.user);
 
   const handleSignOut = () => {
@@ -30,8 +33,20 @@ const Header = () => {
     setIsSearching(!isSearching);
   };
 
-  const handleSearch = (e) => {
-    dispatch(searchTitle(e.target.value));
+  const handleOnInputSearch = async (userInput) => {
+    const query = SEARCH_QUERY + userInput;
+      const chatCompletion = await openai.chat.completions.create({
+        messages: [{ role: "user", content: query }],
+        model: "gpt-3.5-turbo",
+      });
+      console.log(chatCompletion);
+  };
+
+  const handler = useCallback(debounce(handleOnInputSearch, 500), []);
+
+  const onChange = (event) => {
+    setInput(event.target.value);
+    handler(userInput);
   };
 
   useEffect(() => {
@@ -79,17 +94,6 @@ const Header = () => {
 
         {user && (
           <ul className="flex ml-4 items-center space-x-6 text-white">
-            <li className="navigation-menu">
-              <a
-                className="menu-trigger"
-                role="button"
-                aria-haspopup="true"
-                href="/browse"
-                tabIndex="0"
-              >
-                Browse
-              </a>
-            </li>
             <li className="navigation-tab">
               <a href="/browse" className="current active">
                 Home
@@ -100,6 +104,12 @@ const Header = () => {
             </li>
             <li className="navigation-tab">
               <a href="/browse/genre/">Movies</a>
+            </li>
+            <li className="navigation-tab">
+              <a href="/browse/genre/">News & Popular</a>
+            </li>
+            <li className="navigation-tab">
+              <a href="/browse/genre/">My List</a>
             </li>
           </ul>
         )}
@@ -135,8 +145,9 @@ const Header = () => {
                     name="searchInput"
                     placeholder="Titles, people, genres"
                     maxLength="80"
+                    value={userInput}
                     className="opacity-100 focus:outline-none bg-black border-solid border-[1px] border-white p-1 pl-10 pr-16 mr-5"
-                    onChange={handleSearch}
+                    onChange={onChange}
                   />
 
                   <FontAwesomeIcon

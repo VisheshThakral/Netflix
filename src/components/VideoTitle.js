@@ -4,7 +4,7 @@ import { faCircleInfo } from "@fortawesome/free-solid-svg-icons";
 
 const VideoTitle = ({ title, overview }) => {
   return (
-    <div className="max-w-full w-screen pt-[21%] px-6 md:px-24 absolute text-white aspect-video bg-gradient-to-tr from-black">
+    <div className="max-w-full w-screen pt-[21%] px-6 md:px-24 absolute text-white aspect-video bg-gradient-to-tr from-black z-20">
       <h1 className="xl:text-5xl 3xl:text-8xl font-bold w-4/5">{title}</h1>
       <p className="py-6 3xl:text-lg w-1/3 max-h-36">
         {overview.length > 180 ? overview.substr(0, 180) + " ..." : overview}
