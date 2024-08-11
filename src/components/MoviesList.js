@@ -15,14 +15,14 @@ const MoviesList = ({ title, movies }) => {
   function SampleNextArrow(props) {
     const { onClick } = props;
     return (
-      <div className="bottom-0 right-[1%] absolute flex items-center max-h-32 h-full z-50 bg-[hsla(0, 0%, 8%, .5)]">
+      <div className="bottom-0 right-0 absolute cursor-pointer flex items-center max-h-32 h-full z-50 icon px-2">
         <FontAwesomeIcon
           icon={faChevronRight}
           onClick={() => {
             onClick();
             setNextClicked(true);
           }}
-          className="text-white cursor-pointer h-12 slick-arrow right"
+          className="text-white h-16 slick-arrow right"
         />
       </div>
     );
@@ -31,11 +31,11 @@ const MoviesList = ({ title, movies }) => {
   function SamplePrevArrow(props) {
     const { onClick } = props;
     return (
-      <div className="bottom-0 left-[1%] absolute flex items-center max-h-32 h-full z-50 bg-[hsla(0, 0%, 8%, .5)]">
+      <div className="bottom-0 left-0 absolute cursor-pointer flex items-center max-h-32 h-full z-50 icon px-2">
         <FontAwesomeIcon
           icon={faChevronLeft}
           onClick={onClick}
-          className="text-white cursor-pointer h-12 z-50 slick-arrow left"
+          className="text-white h-16 z-50 slick-arrow left"
         />
       </div>
     );
@@ -44,8 +44,8 @@ const MoviesList = ({ title, movies }) => {
   let settings = {
     infinite: true,
     dots: false,
-    slidesToShow: 6,
-    slidesToScroll: 5,
+    slidesToShow: 7,
+    slidesToScroll: 6,
     nextArrow: <SampleNextArrow />,
   };
 
@@ -54,9 +54,9 @@ const MoviesList = ({ title, movies }) => {
   }
 
   return (
-    <div className={"my-[3vw] pl-[4%] overflow-hidden max-w-[100vw]"}>
-      <h1 className="text-2xl py-4 text-white">{title}</h1>
-      <div>
+    <div className={"my-[3vw] overflow-hidden max-w-[100vw]"}>
+      <h1 className="text-2xl pl-14 py-4 text-white">{title}</h1>
+      <div className={`transition-all duration-500 ${nextClicked ? 'pl-0 clicked' : 'pl-14'}`}>
         <Slider {...settings}>
           {movies?.map((movie) => (
             <MovieCard key={movie.id} movie={movie} className="mr-3" />

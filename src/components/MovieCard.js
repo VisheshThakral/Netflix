@@ -12,7 +12,7 @@ const MovieCard = ({ movie }) => {
       <img
         alt="Movie Card"
         className={
-          "min-w-[255px] object-cover rounded " + (isHovered ? "max-h-32" : "max-h-32")
+          "min-w-[230px] object-cover rounded " + (isHovered ? "max-h-32" : "max-h-32")
         }
         src={IMG_URL + movie.poster_path}
         onMouseEnter={toggleHovering}
