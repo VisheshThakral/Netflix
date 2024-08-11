@@ -41,13 +41,18 @@ const MoviesList = ({ title, movies }) => {
     );
   }
 
-  let settings = {
+  const settings = {
     infinite: true,
     dots: false,
     slidesToShow: 7,
     slidesToScroll: 6,
     nextArrow: <SampleNextArrow />,
   };
+
+  if (window.innerWidth < 1600) {
+    settings['slidesToShow'] = 6;
+    settings['slidesToScroll'] = 5;
+  }
 
   if (nextClicked) {
     settings["prevArrow"] = <SamplePrevArrow />;
