@@ -35,11 +35,11 @@ const Header = () => {
 
   const handleOnInputSearch = async (userInput) => {
     const query = SEARCH_QUERY + userInput;
-      const chatCompletion = await openai.chat.completions.create({
-        messages: [{ role: "user", content: query }],
-        model: "gpt-3.5-turbo",
-      });
-      console.log(chatCompletion);
+    const chatCompletion = await openai.chat.completions.create({
+      messages: [{ role: "user", content: query }],
+      model: "gpt-3.5-turbo",
+    });
+    console.log(chatCompletion);
   };
 
   const handler = useCallback(debounce(handleOnInputSearch, 500), []);
@@ -81,11 +81,8 @@ const Header = () => {
 
   return (
     <div
-      className={
-        "fixed top-0 left-0 right-0 flex items-center justify-between px-8 bg-gray-800 z-30 " +
-        (!isScrolled ? "opacity-80" : "")
-      }
-      style={{ backgroundColor: "rgb(20, 20, 20)" }}
+      className="fixed top-0 left-0 right-0 flex items-center justify-between px-8 bg-transparent z-30 "
+      style={{ backgroundColor: isScrolled ? "rgb(20, 20, 20)" : "" }}
     >
       <div className="flex">
         <a href="/browse" className="flex items-center">

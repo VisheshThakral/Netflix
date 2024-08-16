@@ -16,6 +16,6 @@ export const TMDB_API_OPTIONS = {
   },
 };
 
-export const IMG_URL = "https://image.tmdb.org/t/p/w780";
+export const IMG_URL = "https://image.tmdb.org/t/p/w300";
 
 export const SEARCH_QUERY = "Act as a movies suggestion system and suggest movies for the query:";

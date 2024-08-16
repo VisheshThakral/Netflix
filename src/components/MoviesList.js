@@ -17,7 +17,7 @@ const MoviesList = ({ title, movies }) => {
     const { onClick } = props;
     return (
       <div
-        className="bottom-0 right-0 absolute cursor-pointer flex items-center max-h-32 h-full z-50 icon px-2"
+        className="bottom-0 right-0 absolute cursor-pointer flex items-center max-h-[135px] h-full z-50 icon px-2 slick-arrow right"
         onClick={() => {
           onClick();
           setNextClicked(true);
@@ -32,7 +32,7 @@ const MoviesList = ({ title, movies }) => {
     const { onClick } = props;
     return (
       <div
-        className="bottom-0 left-0 absolute cursor-pointer flex items-center max-h-32 h-full z-50 icon px-2"
+        className="bottom-0 left-0 absolute cursor-pointer flex items-center max-h-[135px] h-full z-50 icon px-2 slick-arrow left"
         onClick={onClick}
       >
         <FontAwesomeIcon icon={faChevronLeft} className="text-white h-16" />
@@ -55,11 +55,11 @@ const MoviesList = ({ title, movies }) => {
   }
 
   return (
-    <div className="my-[3vw] overflow-x-hidden max-w-[100vw]">
+    <div className="my-[3vw] max-w-[100vw]">
       <h1 className="text-2xl pl-14 py-4 text-white">{title}</h1>
       <div
-        className={`transition-all duration-500 ${
-          nextClicked ? "pl-0 clicked" : "pl-14"
+        className={`transition-all duration-500 overflow-x-hidden ${
+          nextClicked ? "pl-0 clicked" : "ml-14"
         }`}
       >
         <Slider {...settings}>

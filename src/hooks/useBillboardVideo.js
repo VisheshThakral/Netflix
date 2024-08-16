@@ -6,6 +6,7 @@ import { addBillboardTrailer } from "../store/moviesSlice";
 const useBillboardVideo = (movieId) => {
   const dispatch = useDispatch();
   const getBillboardTrailer = async () => {
+    
     const data = await fetch(
       `https://api.themoviedb.org/3/movie/${movieId}/videos`,
       TMDB_API_OPTIONS
