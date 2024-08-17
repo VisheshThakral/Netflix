@@ -5,7 +5,6 @@ import useBillboardVideo from "../hooks/useBillboardVideo";
 const VideoBackground = ({ movieId }) => {
   const movieTrailer = useSelector((store) => store.movies?.billboardTrailer);
   const [isVideoOnMute, setIsVideoOnMute] = useState(true);
-  const [player, setPlayer] = useState(null);
 
   useBillboardVideo(movieId);
 
@@ -14,9 +13,9 @@ const VideoBackground = ({ movieId }) => {
   };
 
   return (
-    <div className="max-w-full ">
+    <div className="w-full overflow-hidden">
       <iframe
-        className="w-screen aspect-video"
+        className="w-full aspect-video scale-[1.35]"
         src={`https://www.youtube.com/embed/${movieTrailer?.key}?&autoplay=1&mute=${isVideoOnMute}`}
         title="YouTube video player"
         id="video-background"
@@ -25,7 +24,7 @@ const VideoBackground = ({ movieId }) => {
 
       <button
         aria-label="Turn audio on"
-        className="text-white absolute bottom-60 z-30 right-14 focus:outline-double rounded-full"
+        className="text-white absolute top-[65%] z-30 right-14 focus:outline-double rounded-full"
         onClick={handleSoundButtonClick}
       >
         <div

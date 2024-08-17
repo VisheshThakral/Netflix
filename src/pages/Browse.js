@@ -1,24 +1,38 @@
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
 import Header from "../components/Header";
 import Billboard from "./Billboard";
+import DetailModal from "./DetailModal";
 import BrowseMovieLists from "./BrowseMovieLists";
 import usePopularMovies from "../hooks/usePopularMovies";
 import useTopRatedMovies from "../hooks/useTopRatedMovies";
 import useUpcomingMovies from "../hooks/useUpcomingMovies";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const Browse = () => {
   const search = useSelector((store) => store.search);
   const navigate = useNavigate();
+  const location = useLocation();
+  const [showModal, setShowModal] = useState(false);
+
+  useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    if (queryParams.get("preview")) {
+      setShowModal(true);
+    } else {
+      setShowModal(false);
+    }
+  }, [location]);
 
   useEffect(() => {
     navigate("/browse?q=" + search.searchItem);
     if (!search.searchItem) {
-      navigate("/browse")
+      navigate("/browse");
     }
   }, [search.searchItem]);
+
+  const closeModal = () => setShowModal(false);
 
   useNowPlayingMovies();
   usePopularMovies();
@@ -36,6 +50,7 @@ const Browse = () => {
       ) : (
         ""
       )}
+      {showModal && <DetailModal onClose={closeModal} />}
     </>
   );
 };

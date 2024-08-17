@@ -15,7 +15,7 @@ const useBillboardVideo = (movieId) => {
     const trailers = movieVideos?.results?.filter(
       (movie) => movie.type === "Trailer"
     );
-    const movieTrailer = trailers.length ? trailers[0] : movieVideos[0];
+    const movieTrailer = trailers?.length ? trailers[0] : movieVideos[0];
     dispatch(addBillboardTrailer(movieTrailer));
   };
 

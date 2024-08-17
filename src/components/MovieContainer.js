@@ -21,7 +21,6 @@ const MovieContainer = ({ movie }) => {
           top: rect.top,
           left: rect.left,
         });
-        console.log(position);
         setIsHovered(true);
       }}
     >

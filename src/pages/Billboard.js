@@ -19,7 +19,9 @@ const Billboard = () => {
   return (
     <div>
       <VideoTitle title={title} overview={overview} />
-      <VideoBackground movieId={id} />
+      <div className="max-w-full">
+        <VideoBackground movieId={id} />
+      </div>
     </div>
   );
 };
