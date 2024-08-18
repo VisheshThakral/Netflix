@@ -14,13 +14,17 @@ const Billboard = () => {
   if (!movies) return;
 
   const billboardMovie = movies[getRandomMovie(0, movies.length)];
-  const { id, overview, title } = billboardMovie;
+  const { id, overview, title, backdrop_path } = billboardMovie;
 
   return (
     <div>
       <VideoTitle title={title} overview={overview} />
       <div className="max-w-full">
-        <VideoBackground movieId={id} />
+        <VideoBackground
+          movieId={id}
+          isBillboardTrailer={true}
+          posterPath={backdrop_path}
+        />
       </div>
     </div>
   );

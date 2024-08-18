@@ -1,31 +1,57 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import YouTube from "react-youtube";
 import { useSelector } from "react-redux";
 import useBillboardVideo from "../hooks/useBillboardVideo";
+import { IMG_URL_HD } from "../utils/constants";
 
-const VideoBackground = ({ movieId }) => {
-  const movieTrailer = useSelector((store) => store.movies?.billboardTrailer);
+const VideoBackground = ({ movieId, posterPath, isBillboardTrailer }) => {
+  const movieTrailer = useSelector((store) =>
+    isBillboardTrailer
+      ? store.movies?.billboardTrailer
+      : store.movies?.movieTrailer
+  );
   const [isVideoOnMute, setIsVideoOnMute] = useState(true);
+  const [showYouTubeVideo, setShowYouTubeVideo] = useState(false);
   const opts = {
     playerVars: {
       autoplay: 1,
-      mute: isVideoOnMute
+      mute: isVideoOnMute,
+      cc_load_policy: 1
     },
   };
 
-  useBillboardVideo(movieId);
+  useEffect(() => {
+    setTimeout(() => {
+      setShowYouTubeVideo(true);
+    }, 1000);
+  }, [])
+
+  useBillboardVideo(movieId, isBillboardTrailer);
 
   const handleSoundButtonClick = () => {
     setIsVideoOnMute(!isVideoOnMute);
   };
 
+  const handleYouTubeVideoEnd = () => {
+    setShowYouTubeVideo(false);
+  };
+
   return (
     <div className="w-full overflow-hidden">
-      <YouTube
-        videoId={movieTrailer?.key}
-        opts={opts}
-        iframeClassName="w-full aspect-video scale-[1.35] h-full"
-      />
+      {!showYouTubeVideo ? (
+        <img
+          src={IMG_URL_HD + posterPath}
+          alt="Movie Image"
+          className="w-full h-screen object-cover"
+        />
+      ) : (
+        <YouTube
+          videoId={movieTrailer?.key}
+          opts={opts}
+          iframeClassName="w-full aspect-video scale-[1.35] h-full"
+          onEnd={handleYouTubeVideoEnd}
+        />
+      )}
 
       <button
         aria-label="Turn audio on"

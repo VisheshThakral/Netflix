@@ -11,8 +11,8 @@ const MovieCard = ({ movie }) => {
     <div className="cursor-pointer shadow-xl">
       <img
         alt="Movie Card"
-        className="min-w-[230px] object-cover rounded max-h-[135px]"
-        src={IMG_URL + movie.poster_path}
+        className="max-w-[230px] object-cover rounded max-h-[135px]"
+        src={IMG_URL + movie.backdrop_path}
         onClick={handleCardClick}
       />
     </div>

@@ -19,7 +19,7 @@ const MoviePreview = ({ movie, position }) => {
       <img
         alt="Movie Preview"
         className="min-w-80 object-cover rounded max-h-52"
-        src={IMG_URL + movie.poster_path}
+        src={IMG_URL + movie.backdrop_path}
       />
       <div className="bg-black text-white p-2">
         <h3>{movie.title}</h3>

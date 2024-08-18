@@ -10,10 +10,7 @@ const DetailModal = ({ onClose }) => {
   const queryParams = new URLSearchParams(location.search);
   const movieId = queryParams.get("preview");
 
-  const getMovieDetails = () => {};
-
   useEffect(() => {
-    getMovieDetails();
     setShow(true);
   }, []);
 
@@ -36,7 +33,7 @@ const DetailModal = ({ onClose }) => {
         }`}
       >
         <div className="max-h-[580px] overflow-hidden relative">
-          <VideoBackground movieId={movieId} />
+          <VideoBackground movieId={movieId} isBillboardTrailer={false} />
           <FontAwesomeIcon
             icon={faXmark}
             className="absolute right-7 top-7 rounded-full cursor-pointer text-white"
