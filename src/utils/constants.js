@@ -12,7 +12,7 @@ export const TMDB_API_OPTIONS = {
   headers: {
     accept: "application/json",
     Authorization:
-      process?.env?.REACT_APP_TMDB_AUTHORIZATION_TOKEN,
+      process.env.REACT_APP_TMDB_AUTHORIZATION_TOKEN,
   },
 };
 
